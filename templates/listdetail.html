@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block title %}
+List detail
+{% endblock title %}
+{% block content %}
+<form action="" method="post">
+    {% csrf_token %} 
+    {{task}}
+<button class="btn btn-danger" type="submit">Yadda saxla</button>
+</form>
+<br>
+<hr>
+{% for taskk in tasks %}
+<div>
+{{taskk}}
+<a href="{% url 'tasks:deletetask' id=taskk.id %}">sil taski</a>
+<a href="{% url 'tasks:updatetask' id=taskk.id %}">güncəllə taski</a>
+
+</div>
+<br>
+
+{% endfor %}
+{% endblock content %}
