@@ -1,23 +1,28 @@
-{% extends "layout.html" %}
-{% block title %}
-List detail
-{% endblock title %}
-{% block content %}
-<form action="" method="post">
-    {% csrf_token %} 
-    {{task}}
-<button class="btn btn-danger" type="submit">Yadda saxla</button>
-</form>
-<br>
-<hr>
-{% for taskk in tasks %}
-<div>
-{{taskk}}
-<a href="{% url 'tasks:deletetask' id=taskk.id %}">sil taski</a>
-<a href="{% url 'tasks:updatetask' id=taskk.id %}">güncəllə taski</a>
+{% extends "layout.html" %} {% block title %} List detail {% endblock title %} {% block content %}
+{% load crispy_forms_tags %}
+<div class="container">
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form|crispy}}
+        <button class="btn btn-danger" type="submit">Yadda saxla</button>
+    </form>
+    <br>
+    <span>
+        {% for taskk in tasks %}
+            <span style="font-size: 22px;">
+                {% if taskk.confirm == True %}
+                    {{taskk}} (Tamamlanilib)
+                {% else %}
+                {{taskk}} 
 
+                {% endif %} 
+            </span>
+                <a href="{% url 'tasks:deletetask' id=taskk.id %}" class="btn btn-danger btn-sm">sil taski</a>
+                <a href="{% url 'tasks:updatetask' id=taskk.id %}" class="btn btn-primary btn-sm">güncəllə taski</a>
+            <br>
+            <hr>
+        {% endfor %}
+    </span>
 </div>
-<br>
 
-{% endfor %}
 {% endblock content %}

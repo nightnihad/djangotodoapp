@@ -12,7 +12,6 @@ class List(models.Model):
     def __str__(self):
         return self.title
 
-
 class Task(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE,related_name='task',verbose_name='Sahibi:',null=True,blank=True)
     title=models.CharField(max_length=50,verbose_name='basliq:')

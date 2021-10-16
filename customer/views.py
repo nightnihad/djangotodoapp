@@ -26,7 +26,7 @@ def logout(request):
 def login(request):
     if request.user.is_authenticated:
         return redirect('tasks:home')
-    form= forms.LoginForm()
+    form=forms.LoginForm()
     if request.method=='POST':
         form=forms.LoginForm(request.POST)
         username=request.POST.get('username')

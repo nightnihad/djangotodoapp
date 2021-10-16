@@ -10,7 +10,7 @@ from .models import List, Task
 @login_required()
 def home(request):
     lists=List.objects.filter(user=request.user)
-
+    listcount=lists.count()
     form=forms.ListForm()
     if request.method =='POST':
         form=forms.ListForm(request.POST)
@@ -21,7 +21,7 @@ def home(request):
             return redirect('tasks:home')
         else:
             raise ValidationError('xeta verirem')
-    context={'form':form,'lists':lists}
+    context={'form':form,'lists':lists,'listcount':listcount}
 
     return render(request,'home.html',context)
 def deletelist(request,id):
@@ -32,19 +32,22 @@ def deletelist(request,id):
     return HttpResponse('ancaq oz commentlerivi sile bilersen.bu commenti sile bilmezsen')
 @login_required()
 def createtask(request,id):
-    task=forms.TaskForm()
+    form=forms.TaskForm()
     list=get_object_or_404(List,id=id)
     tasks=Task.objects.filter(lists=list)
+    taskcount=tasks.count()
     if request.method=='POST':
-        task=forms.TaskForm(request.POST)
-        if task.is_valid():
-            instance=task.save(commit=False)
+        form=forms.TaskForm(request.POST)
+        if form.is_valid():
+            instance=form.save(commit=False)
             instance.user=request.user
             instance.lists=list
             instance.save()
             return redirect('tasks:listdetail',id=list.id)
-    context={'task':task,
-    'tasks':tasks
+    context={
+    'form':form,
+    'tasks':tasks,
+    'taskcount':taskcount
     }
     return render(request,'listdetail.html',context)
 @login_required()

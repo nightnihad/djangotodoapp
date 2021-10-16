@@ -7,6 +7,8 @@ urlpatterns = [
     path('listdetail/<str:id>/',views.createtask,name='listdetail'),
     path('deletetask/<str:id>/',views.deletetask,name='deletetask'),
     path('updatetask/<str:id>/',views.updatetask,name='updatetask'),
-    path('updatelist/<str:id>/',views.updatelist,name='updatelist')
+    path('updatelist/<str:id>/',views.updatelist,name='updatelist'),
+    path('deletelist/<str:id>/',views.deletelist,name='deletelist'),
+
 
 ]   

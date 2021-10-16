@@ -1,11 +1,11 @@
-{% extends "layout.html" %}
-{% block title %}
-qeydiyyat
-{% endblock title %}
-{% block content %}
-<form action="" method="post">
-{% csrf_token %} 
-{{form}}
-    <button class="btn btn-danger" type="submit">qeydiyyat</button>
-</form>
+{% extends "layout.html" %} {% block title %} qeydiyyat {% endblock title %} {% block content %} {% load crispy_forms_tags %}
+<div class="container">
+    <form action="" method="post">
+        {% csrf_token %} {{form|crispy}}
+        <button class="btn btn-danger" type="submit">qeydiyyat</button>
+    </form>
+    <hr>
+    <a href="{% url 'customer:login' %}">Hesabiniz Var?</a>
+</div>
+
 {% endblock content %}
